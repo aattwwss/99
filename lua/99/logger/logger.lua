@@ -68,7 +68,7 @@ FileSink.__index = FileSink
 function FileSink:new(path)
   local fd, err = vim.uv.fs_open(path, "w", 493)
   if not fd then
-    error("unable to file sink", err)
+    error("unable to file sink: " .. err)
   end
 
   return setmetatable({
