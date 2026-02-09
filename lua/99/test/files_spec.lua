@@ -183,4 +183,19 @@ describe("files", function()
     local provider = Files.completion_provider()
     eq(nil, provider.resolve("does/not/exist.lua"))
   end)
+
+  it("completion_provider resolve works with bare filename", function()
+    Files.discover_files()
+    local provider = Files.completion_provider()
+    local content = provider.resolve("refresh.lua")
+    assert.is_not_nil(content, "expected resolve to work with bare filename")
+    assert.is_true(
+      content:sub(1, 6) == "```lua",
+      "expected code fence to start with ```lua"
+    )
+    assert.is_true(
+      content:match("-- scratch/refresh%.lua") ~= nil,
+      "expected full relative path in fence comment"
+    )
+  end)
 end)

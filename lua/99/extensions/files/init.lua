@@ -220,6 +220,18 @@ function M.is_project_file(path)
   return false
 end
 
+--- @param path string
+--- @return _99.Files.File | nil
+function M.get_project_file(path)
+  local files = M.get_files()
+  for _, file in ipairs(files) do
+    if file.path == path or file.name == path then
+      return file
+    end
+  end
+  return nil
+end
+
 --- @param opts _99.Files.Config?
 --- @param rule_dirs string[]? Directories containing rules to exclude from file search
 function M.setup(opts, rule_dirs)
@@ -269,12 +281,16 @@ function M.completion_provider()
       return M.is_project_file(token)
     end,
     resolve = function(token)
-      local content = M.read_file(token)
+      local file = M.get_project_file(token)
+      if not file then
+        return nil
+      end
+      local content = M.read_file(file.path)
       if not content then
         return nil
       end
-      local ext = token:match("%.([^%.]+)$") or ""
-      return string.format("```%s\n-- %s\n%s\n```", ext, token, content)
+      local ext = file.path:match("%.([^%.]+)$") or ""
+      return string.format("```%s\n-- %s\n%s\n```", ext, file.path, content)
     end,
   }
 end
