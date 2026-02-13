@@ -134,12 +134,20 @@ Referenced content is automatically resolved and injected into the AI context. R
 | `OpenCodeProvider` (default) | `opencode` | `opencode/claude-sonnet-4-5` |
 | `ClaudeCodeProvider` | `claude` | `claude-sonnet-4-5` |
 | `CursorAgentProvider` | `cursor-agent` | `sonnet-4.5` |
+| `QwenProvider` | `qwen` | `coder-model` |
 
 ```lua
 _99.setup({
     provider = _99.ClaudeCodeProvider,
     -- model is optional, overrides the provider's default
     model = "claude-sonnet-4-5",
+})
+
+-- Or to use Qwen:
+_99.setup({
+    provider = _99.QwenProvider,
+    -- model is optional, overrides the provider's default
+    model = "coder-model",
 })
 ```
 

@@ -120,11 +120,52 @@ describe("providers", function()
     end)
   end)
 
+  describe("KiroProvider", function()
+    it("builds correct command with model", function()
+      local request = { context = { model = "anthropic/claude-sonnet-4-5" } }
+      local cmd =
+        Providers.KiroProvider._build_command(nil, "test query", request)
+      eq({
+        "kiro-cli",
+        "chat",
+        "--no-interactive",
+        "--model",
+        "anthropic/claude-sonnet-4-5",
+        "--trust-all-tools",
+        "test query",
+      }, cmd)
+    end)
+
+    it("has correct default model", function()
+      eq("claude-sonnet-4-5", Providers.KiroProvider._get_default_model())
+    end)
+  end)
+
+  describe("QwenProvider", function()
+    it("builds correct command with model", function()
+      local request = { context = { model = "coder-model" } }
+      local cmd =
+        Providers.QwenProvider._build_command(nil, "test query", request)
+      eq({
+        "qwen",
+        "test query",
+        "--model",
+        "coder-model",
+      }, cmd)
+    end)
+
+    it("has correct default model", function()
+      eq("coder-model", Providers.QwenProvider._get_default_model())
+    end)
+  end)
+
   describe("BaseProvider", function()
     it("all providers have make_request", function()
       eq("function", type(Providers.OpenCodeProvider.make_request))
       eq("function", type(Providers.ClaudeCodeProvider.make_request))
       eq("function", type(Providers.CursorAgentProvider.make_request))
+      eq("function", type(Providers.KiroProvider.make_request))
+      eq("function", type(Providers.QwenProvider.make_request))
     end)
   end)
 end)
