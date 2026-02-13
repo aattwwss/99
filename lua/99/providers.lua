@@ -249,6 +249,8 @@ function QwenProvider._build_command(_, query, request)
     query,
     "--model",
     request.context.model,
+    "--approval-mode",
+    "auto-edit",
   }
 end
 
