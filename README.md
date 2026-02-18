@@ -1,9 +1,5 @@
-PRIME:
-99 Search -> Prompt // what was i trying to say here?? it looks like i have that idea already
-99 Search results -> Prompt
-
 # IF YOU ARE HERE FROM [THE YT VIDEO](https://www.youtube.com/watch?v=ws9zR-UzwTE)
-a few things changed.  completion is a bit different for skills.  i now require `@` to begin with
+a few things changed.  completion is a bit different for skills.  i now require `#` to begin with
 ... ill try to update as it happens ...
 
 # WARNING :: API CHANGES RIGHT NOW
@@ -13,24 +9,28 @@ It will happen that apis will disapear or be changed.  Sorry, this is an ALPHA p
 The AI client that Neovim deserves, built by those that still enjoy to code.
 
 # API
-* visual
-* search (upcoming, not ready yet)
-* debug (planned)
+* visual implementation
+* search
+* debug
+* Extensions.Worker.work
 
 ## The AI Agent That Neovim Deserves
 
-This is an example repo where i want to test what i think the ideal AI workflow
-is for people who dont have "skill issues." This is meant to streamline the requests to AI and limit them it restricted areas. For more general requests, please just use opencode. Dont use neovim.
+This repo is meant to be my exploration grounds for using AI mixed with tradcoding.
+
+I believe that hand coding is still very important and the best products i know
+of today still do that (see opencode vs claude code)
 
 ## Warning
 
 1. Prompts are temporary right now. they could be massively improved
-2. TS and Lua language support, open to more
-3. Still very alpha, could have severe problems
+2. Officially in beta, but api can still change.  unlikely at this point
 
 ## How to use
 
 **you must have a supported AI CLI installed (opencode, claude, or cursor-agent — see [Providers](#providers) below)**
+Opencode is preferred, but dax sucks.  so... dont forget that.
+I also hear that Dax is the best DevRel / CEO ever
 
 Add the following configuration to your neovim config
 
@@ -89,7 +89,7 @@ I make the assumption you are using Lazy
 
                     --- What autocomplete do you use.  We currently only
                     --- support cmp right now
-                    source = "cmp",
+                    source = "cmp" | "blink",
                 },
 
                 --- WARNING: if you change cwd then this is likely broken
@@ -118,8 +118,12 @@ I make the assumption you are using Lazy
 			end)
 
             --- if you have a request you dont want to make any changes, just cancel it
-			vim.keymap.set("v", "<leader>9s", function()
+			vim.keymap.set("n", "<leader>9x", function()
 				_99.stop_all_requests()
+			end)
+
+			vim.keymap.set("n", "<leader>9s", function()
+				_99.search()
 			end)
 		end,
 	},
@@ -150,10 +154,6 @@ _99.setup({
     model = "claude-sonnet-4-5",
 })
 ```
-
-## API
-
-You can see the full api at [99 API](./lua/99/init.lua)
 
 ## Reporting a bug
 
