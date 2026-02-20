@@ -64,7 +64,10 @@ end
 function M.on_provider_selected(name, lookup)
   local provider = lookup[name]
   if not provider then
-    vim.notify("99: Invalid provider selection: " .. tostring(name), vim.log.levels.ERROR)
+    vim.notify(
+      "99: Invalid provider selection: " .. tostring(name),
+      vim.log.levels.ERROR
+    )
     return
   end
   _99.set_provider(provider)
