@@ -183,6 +183,8 @@ describe("providers", function()
         "test query",
         "--model",
         "coder-model",
+        "--approval-mode",
+        "auto-edit",
       }, cmd)
     end)
 
