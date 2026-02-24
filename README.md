@@ -378,12 +378,20 @@ Referenced content is automatically resolved and injected into the AI context. R
 | `ClaudeCodeProvider` | `claude` | `claude-sonnet-4-5` |
 | `CursorAgentProvider` | `cursor-agent` | `sonnet-4.5` |
 | `GeminiCLIProvider` | `gemini` | `auto` |
+| `QwenProvider` | `qwen` | `coder-model` |
 
 ```lua
 _99.setup({
     provider = _99.Providers.ClaudeCodeProvider,
     -- model is optional, overrides the provider's default
     model = "claude-sonnet-4-5",
+})
+
+-- Or to use Qwen:
+_99.setup({
+    provider = _99.QwenProvider,
+    -- model is optional, overrides the provider's default
+    model = "coder-model",
 })
 ```
 

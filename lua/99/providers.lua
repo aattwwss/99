@@ -289,7 +289,34 @@ end
 
 --- @return string
 function KiroProvider._get_default_model()
-  return "claude-sonnet-4.5"
+  return "claude-sonnet-4-5"
+end
+
+--- @class QwenProvider : _99.Providers.BaseProvider
+local QwenProvider = setmetatable({}, { __index = BaseProvider })
+
+--- @param query string
+--- @param request _99.Request
+--- @return string[]
+function QwenProvider._build_command(_, query, request)
+  return {
+    "qwen",
+    query,
+    "--model",
+    request.context.model,
+    "--approval-mode",
+    "auto-edit",
+  }
+end
+
+--- @return string
+function QwenProvider._get_provider_name()
+  return "QwenProvider"
+end
+
+--- @return string
+function QwenProvider._get_default_model()
+  return "coder-model"
 end
 
 --- @class GeminiCLIProvider : _99.Providers.BaseProvider
@@ -331,4 +358,5 @@ return {
   CursorAgentProvider = CursorAgentProvider,
   KiroProvider = KiroProvider,
   GeminiCLIProvider = GeminiCLIProvider,
+  QwenProvider = QwenProvider,
 }
