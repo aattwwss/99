@@ -95,6 +95,15 @@ ONLY provide requested changes by writing the change to TEMP_FILE
 You receive a selection in neovim that you need to replace with new code.
 The selection's contents may contain notes, incorporate the notes every time if there are some.
 consider the context of the selection and what you are suppose to be implementing
+
+<Rules>
+<Rule>You MUST write your complete code output to TEMP_FILE</Rule>
+<Rule>NEVER output the code as conversational text</Rule>
+<Rule>NEVER alter any file other than TEMP_FILE</Rule>
+<Rule>After writing TEMP_FILE, end your session immediately</Rule>
+<Rule>The entire replacement code must be written to TEMP_FILE</Rule>
+</Rules>
+
 <SELECTION_LOCATION>
 %s
 </SELECTION_LOCATION>
